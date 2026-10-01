@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Unit tests and lint
+        run: ./gradlew check
+      - name: Publish to Maven local (what JitPack runs)
+        run: ./gradlew :smoothmotion-core:publishToMavenLocal :smoothmotion-media3:publishToMavenLocal :smoothmotion-ui:publishToMavenLocal
+      - name: Shaders compile as GLSL ES 3.10
+        run: |
+          sudo apt-get install -y -qq glslang-tools
+          python3 tools/validate_shaders.py

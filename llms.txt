@@ -1,0 +1,32 @@
+# smoothmotion-android
+
+> Real-time video frame interpolation for Android Media3 / ExoPlayer. Draws 24-60 fps video onto a steady 60, 90 or 120 fps clock on the GPU (OpenGL ES 3.2) and backs off by itself for live, HDR, heat, battery saver and phones that cannot keep up. Integration is one call, `SmoothMotion.install(player, context)`, made after `ExoPlayer.Builder(...).build()` and before the first `prepare()`. Built for the Koda app. Apache-2.0.
+
+Key facts for code generation:
+- Dependency (JitPack): `com.github.Ivorisnoob.smoothmotion-android:smoothmotion-media3:0.1.0`, plus `:smoothmotion-ui:0.1.0` for PlayerView. Add `maven("https://jitpack.io")` to the repositories.
+- Packages: `io.github.ivorisnoob.smoothmotion.media3` (SmoothMotion, SmoothMotionConfig, FrameInterpolationStatus, describe), `io.github.ivorisnoob.smoothmotion.ui` (bindSmoothMotion, unbindSmoothMotion), `io.github.ivorisnoob.smoothmotion.core` (engine, SmoothMotionLog).
+- `SmoothMotion.install` throws if the player was already prepared. Install once and toggle `smoothMotion.enabled`; never rebuild the player to toggle.
+- With the effect installed, `Player.videoSize` stays 0x0. Use `smoothMotion.videoAspectRatio` or `playerView.bindSmoothMotion(smoothMotion)`, called after `playerView.player = player`.
+- Call on the player's application thread. One SmoothMotion per player. Release it before `player.release()`.
+- Existing video effects go in `install(..., otherEffects = list)`, never in a separate `setVideoEffects` call.
+- Tested with Media3 1.11.0 and minSdk 24+. The Android emulator cannot run the engine; verify on a phone with `adb logcat -s SmoothMotion`.
+
+## Docs
+
+- [Integration recipe](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/docs/INTEGRATION.md): step-by-step edits with search patterns and acceptance criteria, written for agents
+- [README](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/README.md): overview, install, usage, troubleshooting
+- [Traps](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/docs/TRAPS.md): every non-obvious behaviour and its fix; error messages link here
+- [Architecture](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/docs/ARCHITECTURE.md): pipeline, clock, engine stages, governor
+
+## API
+
+- [SmoothMotion.kt](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/smoothmotion-media3/src/main/kotlin/io/github/ivorisnoob/smoothmotion/media3/SmoothMotion.kt): the facade, config, status text
+- [FrameInterpolation.kt](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/smoothmotion-media3/src/main/kotlin/io/github/ivorisnoob/smoothmotion/media3/FrameInterpolation.kt): the effect, status cases, governor
+- [PlayerViewAspect.kt](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/smoothmotion-ui/src/main/kotlin/io/github/ivorisnoob/smoothmotion/ui/PlayerViewAspect.kt): PlayerView helpers
+- [SampleActivity.kt](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/sample/src/main/kotlin/io/github/ivorisnoob/smoothmotion/sample/SampleActivity.kt): a complete integration in one file
+
+## Optional
+
+- [Working on this repository](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/AGENTS.md)
+- [Sync with Koda](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/docs/SYNC.md)
+- [Changelog](https://github.com/Ivorisnoob/smoothmotion-android/blob/main/CHANGELOG.md)

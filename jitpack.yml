@@ -1,0 +1,5 @@
+# JitPack builds a tag on first request: https://jitpack.io/#Ivorisnoob/smoothmotion-android
+jdk:
+  - openjdk21
+install:
+  - ./gradlew --no-configuration-cache :smoothmotion-core:publishToMavenLocal :smoothmotion-media3:publishToMavenLocal :smoothmotion-ui:publishToMavenLocal

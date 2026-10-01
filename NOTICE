@@ -1,0 +1,12 @@
+smoothmotion-android
+Copyright 2026 Ivorisnoob
+
+Built for Koda (https://github.com/Ivorisnoob/Koda), where the engine is
+developed and shipped as "Smooth motion".
+
+This product includes a port of open-svpflow
+(https://github.com/Z1xus/open-svpflow, commit a334f02), licensed under the
+Apache License, Version 2.0: the frame renderer, its coverage and bad-area
+masks, scene classification and phase re-timing in ComputeMotionEngine.kt.
+open-svpflow is an independent reimplementation of SVPFlow, the VapourSynth
+plugins of SmoothVideo Project (SVP). No code from SVP itself is included.

@@ -1,0 +1,22 @@
+[versions]
+# Kept in step with Koda (github.com/Ivorisnoob/Koda), where the engine is
+# developed and tested on devices. Media3 is pinned on purpose: the effect
+# relies on 1.11.0 internals (docs/TRAPS.md, "Media3 version").
+agp = "9.3.1"
+kotlin = "2.4.20"
+media3 = "1.11.0"
+coroutines = "1.10.1"
+junit = "4.13.2"
+activity = "1.11.0"
+
+[libraries]
+media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
+media3-effect = { group = "androidx.media3", name = "media3-effect", version.ref = "media3" }
+media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
