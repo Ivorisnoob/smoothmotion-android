@@ -39,7 +39,7 @@ Needs JDK 17+ and an Android SDK with platform 36 (`local.properties`: `sdk.dir=
 7. **Public API changes** are listed in `CHANGELOG.md` and, if they change how apps integrate, in `docs/INTEGRATION.md` and the README in the same change.
 8. **Error messages point to a fix.** A new `check`/`require` in public API says what to do and links a `docs/TRAPS.md` heading (`SmoothMotion.DOCS`). Add the heading if it is new.
 9. **No hardcoded thread assumptions:** public calls run on the player's application looper; the effect runs on Media3's GL thread; they meet only through `FrameInterpolationControl`'s `@Volatile` fields, one writer per field.
-10. **Releasing:** bump `smoothmotion.version` in `gradle.properties`, move the CHANGELOG's Unreleased section under the version, and tag `vX.Y.Z`. JitPack builds from the tag.
+10. **Releasing:** bump `smoothmotion.version` in `gradle.properties`, move the CHANGELOG's Unreleased section under the version, and publish a GitHub release whose tag is the bare version (`0.2.0`, no `v`). JitPack uses the tag name as the version users write, so `v0.2.0` would not match the README's coordinates. For the release notes, use only that version's CHANGELOG section, with links made absolute.
 
 ## Before you hand work back
 
